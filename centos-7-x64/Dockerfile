@@ -6,7 +6,7 @@ RUN wget -O /tmp/1.rpm https://dl.fedoraproject.org/pub/epel/epel-release-latest
 RUN rpm -i /tmp/1.rpm && rm -f /tmp/1.rpm
 RUN yum clean all && yum -y upgrade
 # RPM build
-RUN yum clean all && yum -y install selinux-policy selinux-policy-devel rpmlint redhat-rpm-config rpm-build redhat-lsb
+RUN yum clean all && yum -y install selinux-policy selinux-policy-devel rpmlint redhat-rpm-config rpm-build redhat-lsb libtool
 # RocksDB
 RUN yum clean all && yum -y install snappy-devel zlib-devel bzip2-devel openssl-devel perl-Time-HiRes
 #
