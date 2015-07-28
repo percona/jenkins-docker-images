@@ -1,0 +1,19 @@
+FROM centos:5
+MAINTAINER Alexey Bychko <alexey.bychko@percona.com>
+RUN yum -y install wget
+RUN wget -O /etc/yum.repos.d/percona-dev.repo http://jenkins.percona.com/yum-repo/percona-dev.repo
+RUN wget -O /tmp/1.rpm https://dl.fedoraproject.org/pub/epel/epel-release-latest-5.noarch.rpm
+RUN rpm -i /tmp/1.rpm && rm -f /tmp/1.rpm
+RUN yum -y upgrade
+# RPM build
+RUN yum -y install buildsys-macros selinux-policy selinux-policy-devel rpmlint redhat-rpm-config rpm-build redhat-lsb
+# RocksDB
+RUN yum -y install snappy-devel zlib-devel bzip2-devel scons openssl-devel
+#
+RUN yum -y install ncurses-devel readline-devel bison gcc gcc-c++ gcc44 gcc44-c++ gperf perl time zlib-devel libaio-devel cmake openssh-server openssh-clients java-1.7.0-openjdk
+RUN yum -y install git make pam-devel autoconf automake
+RUN yum -y install python26 python26-devel python26-setuptools
+RUN /usr/bin/easy_install-2.6 sphinx
+RUN /etc/init.d/sshd restart
+RUN adduser jenkins
+RUN echo 'jenkins:jenkins123!' | chpasswd
