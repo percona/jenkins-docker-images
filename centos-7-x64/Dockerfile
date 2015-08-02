@@ -11,10 +11,10 @@ RUN yum clean all && yum -y install selinux-policy selinux-policy-devel rpmlint 
 RUN yum clean all && yum -y install snappy-devel zlib-devel bzip2-devel openssl-devel perl-Time-HiRes
 #
 RUN yum clean all && yum -y install ncurses-devel readline-devel bison gcc gcc-c++ gperf perl time zlib-devel libaio-devel cmake openssh-server openssh-clients java-1.7.0-openjdk
-RUN yum clean all && yum -y install git make pam-devel autoconf automake golang librocksdb-devel
+RUN yum clean all && yum -y install git make pam-devel autoconf automake golang librocksdb-devel valgrind-devel
 RUN yum clean all && yum -y install python python-devel python-setuptools scons
-RUN /usr/bin/easy_install sphinx
-RUN /usr/bin/easy_install scons
+RUN /usr/bin/easy_install -U sphinx
+RUN /usr/bin/easy_install -U scons
 RUN ssh-keygen -q -N "" -t dsa -f /etc/ssh/ssh_host_ecdsa_key && ssh-keygen -q -N "" -t rsa -f /etc/ssh/ssh_host_rsa_key 
 RUN adduser jenkins
 RUN echo 'jenkins:jenkins123!' | chpasswd
