@@ -8,7 +8,7 @@ RUN sed -i 's:@@DIST@@:jessie:g' /etc/apt/sources.list.d/percona-dev.list
 RUN apt-get update && apt-get -y dist-upgrade 
 RUN apt-get -y install cmake devscripts make gcc g++ openssh-server openssh-client openjdk-7-jre-headless
 RUN apt-get -y install apt-utils git debhelper libbz2-dev libsnappy-dev zlib1g-dev libzlcore-dev
-RUN apt-get -y install golang scons libssl-dev librocksdb-dev dh-systemd
+RUN apt-get -y install golang scons libssl-dev librocksdb-dev dh-systemd valgrind
 RUN /etc/init.d/ssh restart 
 RUN mkdir -p /var/run/sshd
 #
