@@ -17,3 +17,5 @@ RUN /usr/bin/easy_install -U scons
 RUN ssh-keygen -q -N "" -t dsa -f /etc/ssh/ssh_host_ecdsa_key && ssh-keygen -q -N "" -t rsa -f /etc/ssh/ssh_host_rsa_key 
 RUN adduser jenkins
 RUN echo 'jenkins:jenkins123!' | chpasswd
+#
+EXPOSE 22

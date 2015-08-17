@@ -16,4 +16,5 @@ RUN mkdir -p /var/run/sshd
 #
 RUN adduser --disabled-password --gecos "" jenkins
 RUN echo 'jenkins:jenkins123!' | chpasswd
-
+#
+EXPOSE 22

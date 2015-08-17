@@ -19,3 +19,5 @@ RUN /usr/bin/easy_install scons
 RUN /etc/init.d/sshd restart
 RUN adduser jenkins
 RUN echo 'jenkins:jenkins123!' | chpasswd
+#
+EXPOSE 22

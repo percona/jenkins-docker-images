@@ -18,3 +18,5 @@ RUN yum -y install python26 python26-devel python26-setuptools python-sphinx
 RUN /etc/init.d/sshd restart
 RUN adduser jenkins
 RUN echo 'jenkins:jenkins123!' | chpasswd
+#
+EXPOSE 22
