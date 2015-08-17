@@ -14,8 +14,7 @@ RUN yum -y install snappy-devel zlib-devel bzip2-devel scons openssl-devel
 RUN yum -y install ncurses-devel readline-devel bison gcc gcc-c++ gcc44 gcc44-c++ gperf perl time zlib-devel libaio-devel cmake openssh-server openssh-clients java-1.7.0-openjdk
 RUN yum clean all && yum -y install percona-devtoolset-gcc percona-devtoolset-binutils percona-devtoolset-gcc-c++ percona-devtoolset-libstdc++-devel
 RUN yum -y install git make pam-devel autoconf automake valgrind-devel
-RUN yum -y install python26 python26-devel python26-setuptools
-RUN /usr/bin/easy_install-2.6 sphinx
+RUN yum -y install python26 python26-devel python26-setuptools python-sphinx
 RUN /etc/init.d/sshd restart
 RUN adduser jenkins
 RUN echo 'jenkins:jenkins123!' | chpasswd

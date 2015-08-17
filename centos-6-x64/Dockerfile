@@ -14,8 +14,7 @@ RUN yum clean all && yum -y install ncurses-devel readline-devel bison gcc gcc-c
 # Devtoolset
 RUN yum clean all && yum -y install percona-devtoolset-gcc percona-devtoolset-binutils percona-devtoolset-gcc-c++ percona-devtoolset-libstdc++-devel
 RUN yum clean all && yum -y install git make pam-devel autoconf automake golang librocksdb-devel valgrind-devel
-RUN yum clean all && yum -y install python python-devel python-setuptools scons
-RUN /usr/bin/easy_install sphinx
+RUN yum clean all && yum -y install python python-devel python-setuptools scons python-sphinx
 RUN /usr/bin/easy_install scons
 RUN /etc/init.d/sshd restart
 RUN adduser jenkins
