@@ -15,6 +15,8 @@ RUN yum -y install ncurses-devel readline-devel bison gcc gcc-c++ gcc44 gcc44-c+
 RUN yum clean all && yum -y install percona-devtoolset-gcc percona-devtoolset-binutils percona-devtoolset-gcc-c++ percona-devtoolset-libstdc++-devel
 RUN yum -y install git make pam-devel autoconf automake valgrind-devel
 RUN yum -y install python26 python26-devel python26-setuptools python-sphinx
+RUN mkdir -p /usr/local && cd /usr/local && git clone https://github.com/percona/percona-subunit2junitxml.git
+RUN ln -s /usr/local/percona-subunit2junitxml/subunit2junitxml /usr/bin/subunit2junitxml
 RUN /etc/init.d/sshd restart
 RUN adduser jenkins
 RUN echo 'jenkins:jenkins123!' | chpasswd

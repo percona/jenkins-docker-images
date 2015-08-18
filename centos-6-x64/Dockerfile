@@ -16,6 +16,8 @@ RUN yum clean all && yum -y install percona-devtoolset-gcc percona-devtoolset-bi
 RUN yum clean all && yum -y install git make pam-devel autoconf automake golang librocksdb-devel valgrind-devel
 RUN yum clean all && yum -y install python python-devel python-setuptools scons python-sphinx
 RUN /usr/bin/easy_install scons
+RUN mkdir -p /usr/local && cd /usr/local && git clone https://github.com/percona/percona-subunit2junitxml.git
+RUN ln -s /usr/local/percona-subunit2junitxml/subunit2junitxml /usr/bin/subunit2junitxml
 RUN /etc/init.d/sshd restart
 RUN adduser jenkins
 RUN echo 'jenkins:jenkins123!' | chpasswd

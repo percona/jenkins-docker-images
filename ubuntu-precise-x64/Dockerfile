@@ -9,6 +9,8 @@ RUN apt-get update && apt-get -y dist-upgrade
 RUN apt-get -y install cmake devscripts make gcc g++ openssh-server openssh-client openjdk-6-jre-headless
 RUN apt-get -y install git debhelper libbz2-dev libsnappy-dev zlib1g-dev libzlcore-dev gcc-4.8 g++-4.8
 RUN apt-get -y install golang
+RUN mkdir -p /usr/local && cd /usr/local && git clone https://github.com/percona/percona-subunit2junitxml.git
+RUN ln -s /usr/local/percona-subunit2junitxml/subunit2junitxml /usr/bin/subunit2junitxml
 RUN restart ssh 
 RUN mkdir -p /var/run/sshd
 #

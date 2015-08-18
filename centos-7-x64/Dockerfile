@@ -14,6 +14,8 @@ RUN yum clean all && yum -y install ncurses-devel readline-devel bison gcc gcc-c
 RUN yum clean all && yum -y install git make pam-devel autoconf automake golang librocksdb-devel valgrind-devel
 RUN yum clean all && yum -y install python python-devel python-setuptools scons python-sphinx
 RUN /usr/bin/easy_install -U scons
+RUN mkdir -p /usr/local && cd /usr/local && git clone https://github.com/percona/percona-subunit2junitxml.git
+RUN ln -s /usr/local/percona-subunit2junitxml/subunit2junitxml /usr/bin/subunit2junitxml
 RUN ssh-keygen -q -N "" -t dsa -f /etc/ssh/ssh_host_ecdsa_key && ssh-keygen -q -N "" -t rsa -f /etc/ssh/ssh_host_rsa_key 
 RUN adduser jenkins
 RUN echo 'jenkins:jenkins123!' | chpasswd
