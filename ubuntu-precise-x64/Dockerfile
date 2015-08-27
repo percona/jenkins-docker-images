@@ -1,20 +1,13 @@
 FROM ubuntu:precise
-RUN apt-get update && apt-get -y install python-software-properties sed wget dialog
-RUN wget -O /etc/apt/sources.list http://repo.ci.percona.com/docker-configs/ubuntu-source-list.template
-RUN apt-get -y install python-software-properties
-RUN apt-add-repository ppa:evarlast/golang1.4
-RUN sed -i 's:@@DIST@@:precise:g' /etc/apt/sources.list
-RUN add-apt-repository ppa:ubuntu-toolchain-r/test
-RUN apt-get update && apt-get -y dist-upgrade 
-RUN apt-get -y install cmake devscripts make gcc g++ openssh-server openssh-client openjdk-6-jre-headless
-RUN apt-get -y install git debhelper libbz2-dev libsnappy-dev zlib1g-dev libzlcore-dev gcc-4.8 g++-4.8
-RUN apt-get -y install golang autoconf automake
-RUN mkdir -p /usr/local && cd /usr/local && git clone https://github.com/percona/percona-subunit2junitxml.git
-RUN ln -s /usr/local/percona-subunit2junitxml/subunit2junitxml /usr/bin/subunit2junitxml
-RUN restart ssh 
-RUN mkdir -p /var/run/sshd
-#
-RUN adduser --disabled-password --gecos "" jenkins
+RUN apt-get update && apt-get -y install sed wget dialog
+RUN apt-key adv --keyserver keys.gnupg.net --recv-keys 1C4CBDCDCD2EFD2A
+RUN wget -O /tmp/1.deb http://apt.puppetlabs.com/puppetlabs-release-precise.deb
+RUN dpkg -i /tmp/1.deb
+RUN apt-get -y update && apt-get -y dist-upgrade
+RUN apt-get -y install puppet
+ENV HOSTNAME vps-d-precise-x64.ci.percona.com
+RUN puppet agent --enable && puppet agent -t --server=jenkins.percona.com || true
+RUN puppet agent -t || true
 RUN echo 'jenkins:jenkins123!' | chpasswd
 #
 EXPOSE 22
