@@ -1,23 +1,15 @@
 FROM centos:7
 MAINTAINER Alexey Bychko <alexey.bychko@percona.com>
 RUN yum clean all && yum -y install wget
-RUN wget -O /etc/yum.repos.d/percona-dev.repo http://jenkins.percona.com/yum-repo/percona-dev.repo
-RUN wget -O /tmp/1.rpm https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-RUN rpm -i /tmp/1.rpm && rm -f /tmp/1.rpm
-RUN yum clean all && yum -y upgrade
-# RPM build
-RUN yum clean all && yum -y install selinux-policy selinux-policy-devel rpmlint redhat-rpm-config rpm-build redhat-lsb libtool
-# RocksDB
-RUN yum clean all && yum -y install snappy-devel zlib-devel bzip2-devel openssl-devel perl-Time-HiRes
-#
-RUN yum clean all && yum -y install ncurses-devel readline-devel bison gcc gcc-c++ gperf perl time zlib-devel libaio-devel cmake openssh-server openssh-clients java-1.7.0-openjdk
-RUN yum clean all && yum -y install git make pam-devel autoconf automake golang librocksdb-devel valgrind-devel
-RUN yum clean all && yum -y install python python-devel python-setuptools scons python-sphinx libeatmydata
-RUN /usr/bin/easy_install -U scons
-RUN mkdir -p /usr/local && cd /usr/local && git clone https://github.com/percona/percona-subunit2junitxml.git
-RUN ln -s /usr/local/percona-subunit2junitxml/subunit2junitxml /usr/bin/subunit2junitxml
+RUN wget -O /tmp/1.rpm http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm
+RUN rpm -i /tmp/1.rpm
+RUN yum -y upgrade
+RUN yum -y install puppet
+ENV HOSTNAME vps-d-ce7-x64.ci.percona.com
+RUN puppet agent -t --server=jenkins.percona.com || true
+RUN rpm -qa | grep jemalloc | xargs yum -y erase || true
+RUN puppet agent -t || true
 RUN ssh-keygen -q -N "" -t dsa -f /etc/ssh/ssh_host_ecdsa_key && ssh-keygen -q -N "" -t rsa -f /etc/ssh/ssh_host_rsa_key 
-RUN adduser jenkins
 RUN echo 'jenkins:jenkins123!' | chpasswd
 #
 EXPOSE 22
